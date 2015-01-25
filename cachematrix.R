@@ -1,5 +1,4 @@
 ## This file contains the code for R Programming course: Assignment02
-## functions do
 
 ## makeCacheMatrix creates list containing a function 
 ## set the value of the Matrix
@@ -9,17 +8,17 @@
 
 makeCacheMatrix <- function(m = matrix()) {
 #Reset inverse 
-inverse <- NULL
-set <- function(y) {
+	inverse <- NULL
+	set <- function(y) {
 # Reset values of m and inverse in parent environment 
-m <<- y
-inverse <<- NULL
-}
-get <- function() m
-setinverse <- function(i) inverse <<-i # Reset values of inverse in parent environment 
-getinverse <- function() inverse
+		m <<- y
+		inverse <<- NULL
+	}
+	get <- function() m
+	setinverse <- function(i) inverse <<-i # Reset values of inverse in parent environment 
+	getinverse <- function() inverse
 #Create and return an anonymous list made of four components
-list(set=set, get=get, setinverse=setinverse, getinverse=getinverse )
+	list(set=set, get=get, setinverse=setinverse, getinverse=getinverse )
 }
 
 
@@ -30,25 +29,24 @@ list(set=set, get=get, setinverse=setinverse, getinverse=getinverse )
 
 cacheSolve <-function(matrixList, ...) {
         
-		#check if Inverse is already computed
-        inverse <- matrixList$getinverse()
-        if(!is.null(inverse)) {
-                message("getting cached data")
-                return(inverse)
-        }
-		#get the matrix created using makeCacheMatrix
-        temp <- matrixList$get()
-		#Check if matrix is invertible
-		if(det(temp)!=0) {
+#check if Inverse is already computed
+    inverse <- matrixList$getinverse()
+    if(!is.null(inverse)) {
+        message("getting cached data")
+        return(inverse)
+    }
+#get the matrix created using makeCacheMatrix
+    temp <- matrixList$get()
+#Check if matrix is invertible
+	if(det(temp)!=0) {
 		inverse <- solve(temp)
-		#Compute inverse of matrix
+	#Compute inverse of matrix
 		matrixList$setinverse(inverse)
         return(inverse)
-		}
-		else
-		{
-			message("It is not an Invertible Matrix")  
-			return(inverse)
-		}		
+	}
+	else {
+		message("It is not an Invertible Matrix")  
+		return(inverse)
+	}		
         
 }
